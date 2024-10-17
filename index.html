@@ -1,0 +1,82 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="./form.css">
+    <link rel="stylesheet" href="./body.css">
+    <link rel="stylesheet" href="./spin.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<script src="main.js"></script>
+<body>
+    <div class="form-controller" id="join" style="display:none;">
+        <center>
+            <image src="./logo3.png" style="width: 400px;"></image>
+        </center>
+        <form>
+            <label class="red"id="errorText">&nbsp;</label>
+            <br>
+            <label>&nbsp; ROOM CODE</label>
+            <input type="text" class="border" placeholder="ENTER CODE HERE" id="codeInput">
+            <br><br><br>
+            <label>&nbsp; NAME</label>
+            <input type="text" class="border" placeholder="ENTER NAME HERE" id="nameInput">
+        </form>
+        <button class="border" onclick="joinGame();">JOIN</button>
+    </div>
+
+    <!--Loading Screen-->
+    <div class="form-controller" id="loading" style="display:none;">
+        <center>
+            <div class="spacer"></div>
+            <!--<label>loading</label>
+            <br><br><br>-->
+            <div class="loader"></div>
+        </center>
+    </div>
+
+    <!--Connected.. Waiting for players Screen-->
+    <div class="form-controller" id="connected" style="display:none;">
+        <center>
+            <div class="spacer"></div>
+            <label>Waiting for players...</label>
+            <br><br><br>
+            <div class="loader2"></div>
+        </center>
+    </div>
+
+    <!--Game Starting-->
+    <div class="form-controller" id="starting" style="display:none;">
+        <center>
+            <div class="spacer"></div>
+            <label>Look at the TV!</label>
+            <br><br><br>
+            <div class="loader3"></div>
+        </center>
+    </div>
+
+    <!--Pick Prompt-->
+    <div class="form-controller" id="pick" style="display:none;">
+        <br><br>
+        <center><label>Choose a Prompt</label></center>
+        <br>
+        <button class="border" onclick="choosePrompt(0);" id="pick1">How did I lose my virginity?</button>
+        <br><br>
+        <button class="border" onclick="choosePrompt(1);" id="pick2">In 1,000 years, when paper money is a distant memory, how will we pay for goods and services?</button>
+        <br><br>
+        <button class="border" onclick="choosePrompt(2);" id="pick3">____. It's a trap!</button>
+    </div>
+
+    <!--Pick Prompt-->
+    <div class="form-controller" id="prompt" style="display:none;">
+        <br><br>
+        <center><label id="promptHere">Prompt Here</label></center>
+        <br>
+        <form>
+            <textarea class="border" style="height:125px;" maxlength="85" id="promptInput"></textarea>
+        </form>
+        <button class="border" onclick="submitPrompt();" id="promptSumbit">Submit</button>
+    </div>
+</body>
