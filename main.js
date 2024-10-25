@@ -6,6 +6,8 @@ var prompts = [
     ''
 ]
 
+var responses = []
+
 socket.onopen = function(event) {
   // Handle connection open
   console.log("opened");
@@ -33,6 +35,8 @@ socket.onmessage = function(event) {
     else if(type == 'connected'){
         document.getElementById('join').style.display = "none";
         document.getElementById('connected').style.display = "block";
+        
+        document.getElementById('codeInput').value = "";
     }
     //game starting
     else if(type == 'starting'){
@@ -72,6 +76,23 @@ socket.onmessage = function(event) {
         document.getElementById('pick').style.display = "none";
         document.getElementById('connected').style.display = "none";
     }
+    //vote on the best answer
+    else if(type == 'vote'){
+        document.getElementById('starting').style.display = "none";
+        document.getElementById('vote').style.display = "block";
+        
+        //clearing the listing
+        document.getElementById("voteListing").innerHTML = "";
+        responses = messages;
+
+        //getting each answer
+        for(var i = 0; i < messages.length; i++){
+            var prefab = '<button class="border" onclick="voteAnswer(' + i + ');">' + messages[i] + '</button>';
+            document.getElementById("voteListing").innerHTML += prefab;
+            document.getElementById("voteListing").innerHTML += "<br><br>";
+
+        }
+    }
 };
 
 socket.onclose = function(event) {
@@ -96,11 +117,23 @@ function choosePrompt(_id){
     document.getElementById('pick').style.display = "none";
 }
 
+function voteAnswer(_id){
+    sendMessage("voteAnswer", [responses[_id], ""]);
+
+
+    document.getElementById('starting').style.display = "block";
+    document.getElementById('vote').style.display = "none";
+
+}
+
 function submitPrompt(){
     sendMessage("submitPrompt", [prompts[0], document.getElementById('promptInput').value]);
 
     document.getElementById('starting').style.display = "block";
     document.getElementById('prompt').style.display = "none";
+
+    //resetting
+    document.getElementById('promptInput').value = "";
 }
 
 
