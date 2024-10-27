@@ -22,3 +22,8 @@ h3{
 .red{
     color: lightcoral;
 }
+
+.version{
+    font-family: "Noto Sans", sans-serif;
+    color: grey;
+}
