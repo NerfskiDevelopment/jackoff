@@ -1,5 +1,7 @@
 const socket = new WebSocket('wss://server.ghoulvalley.com:4505');
 
+var localStorage = window.localStorage;
+
 var prompts = [
     '',
     '',
@@ -12,8 +14,9 @@ socket.onopen = function(event) {
   // Handle connection open
   console.log("opened");
   //making it so we can connect
-  document.getElementById('loading').style.display = "none";
-  document.getElementById('join').style.display = "block";
+  switchPanelVisible('join');
+  //document.getElementById('loading').style.display = "none";
+  //document.getElementById('join').style.display = "block";
 };
 
 socket.onmessage = function(event) {
@@ -33,21 +36,29 @@ socket.onmessage = function(event) {
    }
    //joined room successfully
     else if(type == 'connected'){
-        document.getElementById('join').style.display = "none";
-        document.getElementById('connected').style.display = "block";
+        switchPanelVisible('connected');
+        //document.getElementById('join').style.display = "none";
+        //document.getElementById('connected').style.display = "block";
         
+        localStorage.setItem("roomCode", document.getElementById('codeInput').value);
+        localStorage.setItem("usernameSave", document.getElementById('nameInput').value);
+
+
+
         document.getElementById('codeInput').value = "";
     }
     //game starting
     else if(type == 'starting'){
-        document.getElementById('connected').style.display = "none";
-        document.getElementById('pick').style.display = "none";
-        document.getElementById('starting').style.display = "block";
+        switchPanelVisible('starting');
+        //document.getElementById('connected').style.display = "none";
+        //document.getElementById('pick').style.display = "none";
+        //document.getElementById('starting').style.display = "block";
     }
     //pick -> pick a prompt 1-3
     else if(type == 'pick'){
-        document.getElementById('starting').style.display = "none";
-        document.getElementById('pick').style.display = "block";
+        switchPanelVisible('pick');
+        //document.getElementById('starting').style.display = "none";
+        //document.getElementById('pick').style.display = "block";
 
         prompts[0] = messages[0];
         prompts[1] = messages[1];
@@ -60,8 +71,9 @@ socket.onmessage = function(event) {
     }
     //type in a message from a prompt
     else if(type == 'prompt'){
-        document.getElementById('prompt').style.display = "block";
-        document.getElementById('starting').style.display = "none";
+        switchPanelVisible('prompt');
+        //document.getElementById('prompt').style.display = "block";
+        //document.getElementById('starting').style.display = "none";
 
         prompts[0] = messages[0];
 
@@ -70,16 +82,17 @@ socket.onmessage = function(event) {
     }
     //host left room or room is closed
     else if(type == 'disconnected'){
-        document.getElementById('join').style.display = "block";
-
-        document.getElementById('starting').style.display = "none";
-        document.getElementById('pick').style.display = "none";
-        document.getElementById('connected').style.display = "none";
+        switchPanelVisible('join');
+        //document.getElementById('join').style.display = "block";
+        //document.getElementById('starting').style.display = "none";
+        //document.getElementById('pick').style.display = "none";
+        //document.getElementById('connected').style.display = "none";
     }
     //vote on the best answer
     else if(type == 'vote'){
-        document.getElementById('starting').style.display = "none";
-        document.getElementById('vote').style.display = "block";
+        switchPanelVisible('vote');
+        //document.getElementById('starting').style.display = "none";
+        //document.getElementById('vote').style.display = "block";
         
         //clearing the listing
         document.getElementById("voteListing").innerHTML = "";
@@ -98,6 +111,9 @@ socket.onmessage = function(event) {
 socket.onclose = function(event) {
   // Handle connection close
   console.log("closed");
+
+  //loading
+  switchPanelVisible('loading');
 };
 
 
@@ -113,24 +129,27 @@ function sendMessage(_type, _messages) {
 function choosePrompt(_id){
     sendMessage("choosePrompt", [prompts[_id], ""]);
 
-    document.getElementById('starting').style.display = "block";
-    document.getElementById('pick').style.display = "none";
+    switchPanelVisible('starting');
+    //document.getElementById('starting').style.display = "block";
+    //document.getElementById('pick').style.display = "none";
 }
 
 function voteAnswer(_id){
     sendMessage("voteAnswer", [responses[_id], ""]);
 
-
-    document.getElementById('starting').style.display = "block";
-    document.getElementById('vote').style.display = "none";
+    switchPanelVisible('starting');
+    //document.getElementById('starting').style.display = "block";
+    //document.getElementById('vote').style.display = "none";
 
 }
 
 function submitPrompt(){
     sendMessage("submitPrompt", [prompts[0], document.getElementById('promptInput').value]);
 
-    document.getElementById('starting').style.display = "block";
-    document.getElementById('prompt').style.display = "none";
+
+    switchPanelVisible('starting');
+    //document.getElementById('starting').style.display = "block";
+    //document.getElementById('prompt').style.display = "none";
 
     //resetting
     document.getElementById('promptInput').value = "";
@@ -146,7 +165,34 @@ function joinGame(){
 }
 
 
+//switches a panel visible and sets everything else to none
+function switchPanelVisible(id) {
+    var panels = [
+        'join',
+        'loading',
+        'connected',
+        'starting',
+        'pick',
+        'prompt',
+        'vote'
+    ];
+
+    for(var i = 0; i < panels.length; i++){
+        var iteration = panels[i];
+        //checking what panel it is at
+        if(iteration == id){
+            document.getElementById(iteration).style.display = "block";
+        }
+        else{
+            document.getElementById(iteration).style.display = "none";
+        }
+    }
+}
+
 //called when the window is loaded
 window.addEventListener("load", (event) => {
     document.getElementById('loading').style.display = "block";
+
+    document.getElementById('codeInput').value = localStorage.getItem("roomCode");
+    document.getElementById('nameInput').value = localStorage.getItem("usernameSave");
 });

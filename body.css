@@ -3,6 +3,7 @@ body {
     width:100vw;
     height:98vh;
     overflow:auto;
+    font-family: 'font-1';
 }
 
 .border{
@@ -16,7 +17,7 @@ body {
 }
 
 h3{
-    font-family: "Noto Sans", sans-serif;
+    font-family: 'font-1';
 }
 
 .red{
@@ -24,6 +25,11 @@ h3{
 }
 
 .version{
-    font-family: "Noto Sans", sans-serif;
+    font-family: 'font-1';
     color: grey;
+}
+
+@font-face {
+    font-family: 'font-1';
+    src: url('./font2.ttf');
 }
