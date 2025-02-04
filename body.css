@@ -7,8 +7,8 @@ body {
 }
 
 .border{
-    border: 1px solid grey;
-    border-radius: 5px;
+    border-radius: 25px;
+    border: 2px solid rgb(107, 107, 107);
 }
 
 .spacer{
@@ -19,6 +19,7 @@ body {
 h3{
     font-family: 'font-1';
 }
+
 
 .red{
     color: lightcoral;
@@ -31,5 +32,5 @@ h3{
 
 @font-face {
     font-family: 'font-1';
-    src: url('./font2.ttf');
+    src: url('./font-4.ttf');
 }

@@ -7,13 +7,19 @@
     max-width: 450px;
     margin: 0 auto;
 
+    background: radial-gradient(#555555, #313131);
     background-color: #313131;
 }
 
 label{
     color: white;
-    font-size: 28px;
+    font-size: 40px;
     font-family: 'font-1';
+}
+.label2{
+    color: white;
+    font-size: 40px;
+    font-family: "Noto Sans", sans-serif;
 }
 
 input[type=text], textarea{
@@ -28,6 +34,9 @@ input[type=text], textarea{
     padding-block: 1px;
     padding-inline: 10px;
 
+    border-radius: 25px;
+    border: 2px solid rgb(107, 107, 107);
+
     resize: none;
 }
 
@@ -39,6 +48,9 @@ button{
 
     font-size: 25px;
     font-family: "Noto Sans", sans-serif;
+
+    border-radius: 25px;
+    border: 2px solid rgb(107, 107, 107);
 
     margin-left: 10%;
 }

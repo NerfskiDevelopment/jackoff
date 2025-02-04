@@ -13,21 +13,21 @@
 <body>
     <div class="form-controller" id="join" style="display:none;">
         <center>
-            <image src="./jackoff.png" style="width: 400px;"></image>
+            <image src="./jackoff.png" style="width: 375px;"></image>
         </center>
         <form>
             <label class="red"id="errorText">&nbsp;</label>
             <br>
             <label>&nbsp; ROOM CODE</label>
-            <input type="text" class="border" placeholder="ENTER CODE HERE" id="codeInput">
+            <input type="text" class="border" placeholder="ENTER CODE HERE" id="codeInput" autocorrect="off" autocomplete="off">
             <br><br><br>
             <label>&nbsp; NAME</label>
-            <input type="text" class="border" placeholder="ENTER NAME HERE" id="nameInput">
+            <input type="text" class="border" placeholder="ENTER NAME HERE" id="nameInput" autocorrect="off" autocomplete="off">
         </form>
         <button class="border" onclick="joinGame();">JOIN</button>
         <br><br><br>
         <center>
-            <h3 class="version">v 1.04</h3>
+            <h3 class="version">v 1.06</h3>
         </center>
     </div>
 
@@ -76,10 +76,10 @@
     <!--Pick Prompt-->
     <div class="form-controller" id="prompt" style="display:none;">
         <br><br>
-        <center><label id="promptHere">Prompt Here</label></center>
+        <center><label id="promptHere" class="label2">Prompt Here</label></center>
         <br>
         <form>
-            <textarea class="border" style="height:125px;" maxlength="85" id="promptInput"></textarea>
+            <textarea class="border" style="height:125px;" maxlength="85" id="promptInput" autocorrect="off" autocomplete="off"></textarea>
         </form>
         <button class="border" onclick="submitPrompt();" id="promptSumbit">Submit</button>
     </div>
